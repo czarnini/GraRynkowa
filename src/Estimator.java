@@ -67,7 +67,6 @@ public class Estimator {
 		spr.set(0, 0, wolumen);
 		spr.set(0, 1, jakosc);
 		RealPointers test = spr.pointers();
-		System.out.println("Jest:"+spl.value(test));
 		return spl.value(test);
 	}
 	

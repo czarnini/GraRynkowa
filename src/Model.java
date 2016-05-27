@@ -5,15 +5,17 @@
  */
 public class Model {
 	private ResultMatrix resultMatrix;
-	/**
-	 * TODO To musi byc definiowane przez Usera!
-	 */
 	
+	/**
+	 * TODO To musi byc definiowane przez Usera!   \/
+	 */
 	public static double 	KOSZTY_STALE=5000,
 							AMORTYZACJA=10000,
 							OPROCENTOWANIE=0.06,
 							STOPA_PODATKU=0.19, 
-							GOTOWKA_NA_ETAP=-1;
+							GOTOWKA_NA_ETAP=300000;
+	/********************************************* /\ */
+	
 	Model()
 	{
 		resultMatrix = new ResultMatrix();
@@ -22,6 +24,15 @@ public class Model {
 	public void CountResults()
 	{
 		resultMatrix.CountResults();
+	}
+	
+	public void GenerateRounds(int howMany)
+	{
+		resultMatrix.GenerateRounds(howMany);
+
+		CountResults();
+	//	resultMatrix.print();
+		
 	}
 	
 }

@@ -19,6 +19,7 @@ public class Round {
 		reklama=f;
 		wynik=-1;
 	}
+	
 	public int getWolumen() {
 		return wolumen;
 	}
@@ -73,8 +74,6 @@ public class Round {
 		
 		
 		wynik = zyskNaDzGosp - podatek;
-		
-		
 	}
 	
 

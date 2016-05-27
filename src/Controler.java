@@ -4,13 +4,13 @@
  *
  */
 public class Controler {
+	private Model model;
+	private View view;
 	
-	public static void main(String args[])
+	Controler()
 	{
-		Model model = new Model();
-		model.GenerateRounds(1000000);
-		
-		
+		model = new Model(this);
+		view = new View(this);
 	}
-
+	
 }

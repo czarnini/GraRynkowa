@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -18,26 +13,19 @@ public class ResultMatrix {
 	
 	private ArrayList <Round>  rounds;
 
-	public ResultMatrix() {
+	public ResultMatrix(int howMany) {
 		rounds= new ArrayList<Round>();
-		Path file = Paths.get("Rounds.txt");
-		BufferedReader reader;
-		try {
-			reader = Files.newBufferedReader(file);
-			String line = null;
-			while((line = reader.readLine())!=null)
-			{
-				double tmp[] = Arrays.stream( line.substring( 0,line.length()).split(",")).map(String::trim).mapToDouble(Double::parseDouble).toArray();
-				//IOException e = null;
-				if(tmp.length!=5)
-					throw new IOException("zla liczba parametrow w pliku rounds.txt");
-				Round tmpRound = new Round((int)tmp[0],(int)tmp[1],tmp[2], tmp[3], tmp[4]);
-				rounds.add(tmpRound);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		GenerateRounds(howMany);
+		try
+		{
+		if(CountResults()==-1)
+		{
+			throw new Exception("Wynik w niepoprawnej formie!");
 		}
-		
+		}
+		catch (Exception e) {
+			e.getMessage();
+		}
 	}
 
 	/**
@@ -83,8 +71,9 @@ public class ResultMatrix {
 	}
 	
 	
-	/*
-	 * Dla zadanej gotowki na etap wylicza wyniki 
+	/**
+	 * 
+	 * @return -1 w wypadku b³êdu, 0 dla poprawnego wyniku.
 	 */
 	public int CountResults()
 	{
@@ -101,13 +90,11 @@ public class ResultMatrix {
 					round.countWynik(Model.GOTOWKA_NA_ETAP);
 					
 				}
-			
 			return 0;
 		}
 		
 	}
-	
-	
+		
 	public void print()
 	{
 		for (Iterator<Round> iterator = rounds.iterator(); iterator.hasNext();) {

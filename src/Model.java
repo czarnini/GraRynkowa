@@ -5,6 +5,8 @@
  */
 public class Model {
 	private ResultMatrix resultMatrix;
+	private int howManySamples;
+	Controler controler;
 	
 	/**
 	 * TODO To musi byc definiowane przez Usera!   \/
@@ -16,9 +18,11 @@ public class Model {
 							GOTOWKA_NA_ETAP=300000;
 	/********************************************* /\ */
 	
-	Model()
+	Model(Controler controler)
 	{
-		resultMatrix = new ResultMatrix();
+		resultMatrix = new ResultMatrix(howManySamples);
+		howManySamples = 0;
+		this.controler = controler;
 	}
 	
 	public void CountResults()
@@ -26,13 +30,11 @@ public class Model {
 		resultMatrix.CountResults();
 	}
 	
-	public void GenerateRounds(int howMany)
+	public void setHowManySamples(int howMany)
 	{
-		resultMatrix.GenerateRounds(howMany);
-
-		CountResults();
-	//	resultMatrix.print();
-		
+		howManySamples=howMany;
 	}
+	
+
 	
 }

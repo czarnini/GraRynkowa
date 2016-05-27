@@ -4,5 +4,11 @@
  *
  */
 public class View {
+	Controler controler;
+
+	public View(Controler controler) 
+	{
+		this.controler = controler;
+	}
 
 }

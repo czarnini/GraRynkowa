@@ -102,7 +102,24 @@ public class ResultMatrix {
 			System.out.println(round.getWolumen()+"\t"+round.getJakosc()+"\t"+  round.getKjz() +"\t"+round.getCena()+"\t"+ round.getReklama()+"\t"+   round.getWynik() );
 		}
 	}
-	
 
+	
+	
+	public double findClosestResult(double result) {
+		
+		double closest=99999999;
+		
+		for (Iterator <Round> iterator = rounds.iterator(); iterator.hasNext();)
+		{
+			Round round =  iterator.next();
+			
+			 if( Math.abs(result-closest) > Math.abs(result-round.getWynik()));
+			 	closest = round.getWynik();
+			
+		}
+		return closest;
+	}
+	
+	
 
 }

@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 /**
  * Klasa reprezentuj¹ca przebieg jednej rundy gry - 
  * @author Micha³ Bogucki, Marcin Janeczko, Aleksander Tym
@@ -19,6 +21,8 @@ public class Round {
 		reklama=f;
 		wynik=-1;
 	}
+	
+	
 	
 	public int getWolumen() {
 		return wolumen;
@@ -75,6 +79,11 @@ public class Round {
 		
 		wynik = zyskNaDzGosp - podatek;
 	}
+
+
+
+	
+
 	
 
 }

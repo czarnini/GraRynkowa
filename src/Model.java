@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 /**
  * 
  * @author Micha³ Bogucki, Marcin Janeczko, Aleksander Tym
@@ -5,7 +7,6 @@
  */
 public class Model {
 	private ResultMatrix resultMatrix;
-	private int howManySamples;
 	Controler controler;
 	
 	/**
@@ -16,12 +17,12 @@ public class Model {
 							OPROCENTOWANIE=0.06,
 							STOPA_PODATKU=0.19, 
 							GOTOWKA_NA_ETAP=300000;
-	/********************************************* /\ */
+	/********************************************* /\ 
+	 * @param howManySamples */
 	
-	Model(Controler controler)
+	Model(Controler controler, int howManySamples)
 	{
 		resultMatrix = new ResultMatrix(howManySamples);
-		howManySamples = 0;
 		this.controler = controler;
 	}
 	
@@ -30,9 +31,15 @@ public class Model {
 		resultMatrix.CountResults();
 	}
 	
-	public void setHowManySamples(int howMany)
+	
+	public void estimateResult(double wantedResult)
 	{
-		howManySamples=howMany;
+		
+	}
+
+	public double findClosestResult(double result) {
+		double estRes= resultMatrix.findClosestResult(result);
+		return estRes;
 	}
 	
 

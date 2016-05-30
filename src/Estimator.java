@@ -4,11 +4,14 @@
  *
  */
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import ru.sscc.spline.Spline;
 import ru.sscc.spline.analytic.GSplineCreator;
@@ -70,13 +73,38 @@ public class Estimator {
 		return spl.value(test);
 	}
 	
-	public static void main(String args[])
+	
+	public void test()
 	{
-		Estimator estymator = new Estimator();
-		estymator.value(5000, 50);
+		String msg;
+		int wolumen, jakosc;
+		double kjz, estkjz;
+		Scanner scanner = new Scanner(System.in);
+		Path file = Paths.get("testEst.txt");
+		
+	
+		
+		System.out.println("Podaj Wolumen, Jakosc, KJZ z programu");
+		
+		wolumen = scanner.nextInt();
+		jakosc = scanner.nextInt();
+		kjz = scanner.nextDouble();
+		estkjz = value(wolumen, jakosc);
+
+		msg = Integer.toString(wolumen, 10)+ "\t" + Integer.toString(jakosc, 10) + "\t" + 
+				Double.toString(kjz) + "\t" + Double.toString(estkjz);
+		
+		System.out.println(msg);
+		
+		try (BufferedWriter writer = Files.newBufferedWriter(file, StandardOpenOption.APPEND)) {
+		    writer.write(msg, 0, msg.length());
+		    writer.newLine();
+		    writer.close();
+		} catch (IOException x) {
+		    System.err.format("IOException: %s%n", x);
+		}
 		
 	}
-
 }
 
 

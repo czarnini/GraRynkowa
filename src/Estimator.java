@@ -24,19 +24,19 @@ import ru.sscc.util.data.RealVectors;
 
 public class Estimator {
 	 
-	private int wolumen[],jakosc[];
-	 private double[] kjz;
+	private int jakosc[];
+	 private double[] kjz,  wolumen;
 	 private Spline spl;
 	
 	
 	Estimator()
 	{
-		Path file = Paths.get("KJZ.txt");
+		Path file = Paths.get("test.txt");
 		try {
 			BufferedReader reader = Files.newBufferedReader(file);
 			String line = reader.readLine();
 		
-			wolumen = Arrays.stream( line.substring( 0,line.length()).split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
+			wolumen = Arrays.stream( line.substring( 0,line.length()).split(",")).map(String::trim).mapToDouble(Double::parseDouble).toArray();
 			line = reader.readLine();
 			jakosc = Arrays.stream( line.substring( 0,line.length()).split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
 			line = reader.readLine();
@@ -56,7 +56,7 @@ public class Estimator {
 	
 		ReducedMesh rMesh =  new StrictScatteredMesh(mesh);
 		try {
-			 spl = GSplineCreator.createSpline(3, rMesh, kjz);
+			 spl = GSplineCreator.createSpline(2, rMesh, kjz);
 		} catch (CalculatingException e) {
 			e.printStackTrace();
 		}
@@ -64,10 +64,10 @@ public class Estimator {
 		
 	}
 	
-	public double value(int wolumen, int jakosc)
+	public double value(double wolumen2, int jakosc)
 	{
 		RealVectors spr = new DoubleVectors(2, 1);
-		spr.set(0, 0, wolumen);
+		spr.set(0, 0, wolumen2);
 		spr.set(0, 1, jakosc);
 		RealPointers test = spr.pointers();
 		return spl.value(test);
@@ -77,7 +77,8 @@ public class Estimator {
 	public void test()
 	{
 		String msg;
-		int wolumen, jakosc;
+		double wolumen;
+		int jakosc;
 		double kjz, estkjz;
 		Scanner scanner = new Scanner(System.in);
 		Path file = Paths.get("testEst.txt");
@@ -86,12 +87,12 @@ public class Estimator {
 		
 		System.out.println("Podaj Wolumen, Jakosc, KJZ z programu");
 		
-		wolumen = scanner.nextInt();
+		wolumen = scanner.nextDouble();
 		jakosc = scanner.nextInt();
 		kjz = scanner.nextDouble();
 		estkjz = value(wolumen, jakosc);
 
-		msg = Integer.toString(wolumen, 10)+ "\t" + Integer.toString(jakosc, 10) + "\t" + 
+		msg = Double.toString(wolumen)+ "\t" + Integer.toString(jakosc, 10) + "\t" + 
 				Double.toString(kjz) + "\t" + Double.toString(estkjz);
 		
 		System.out.println(msg);
@@ -105,6 +106,12 @@ public class Estimator {
 		}
 		
 	}
+	
+	public static void main(String args[])
+	  {
+		Estimator est = new Estimator();
+	  }
+	  
 }
 
 

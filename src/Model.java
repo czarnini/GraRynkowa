@@ -16,7 +16,7 @@ public class Model {
 							AMORTYZACJA=10000,
 							OPROCENTOWANIE=0.06,
 							STOPA_PODATKU=0.19, 
-							GOTOWKA_NA_ETAP=300000;
+							GOTOWKA_NA_ETAP=2000000;
 	/********************************************* /\ 
 	 * @param howManySamples */
 	

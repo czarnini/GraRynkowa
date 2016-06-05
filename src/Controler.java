@@ -9,7 +9,7 @@ public class Controler {
 	
 	Controler()
 	{
-		setModel(new Model(this, 10000));
+		setModel(new Model(this, 1000));
 		setView(new View(this));
 	}
 

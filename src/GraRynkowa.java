@@ -14,13 +14,12 @@ public class GraRynkowa
 		View view = controler.getView();
 		Model model = controler.getModel();
 		Estimator est = new Estimator();
-		Scanner scan = new Scanner(System.in);
-		
-		String jeszcze = "t";
-		while(true)
-		{
-			est.test();
-		}
+		Model.GOTOWKA_NA_ETAP=300000;
+		model.CountResults();
+		Round best = model.findBestResult();
+			System.out.println(best.getWolumen()+ "\t"+best.getJakosc()+ "\t"+best.getKjz()
+			+ "\t"+best.getCena()+ "\t"+best.getReklama()+ "\t"+best.getWynik() +"\t Niesprzedany:"+best.getWolumenNiesprzedany()+ "\t"+best.getPrzychodyZodsprzedazy()); 
+	
 		
 	  }
 	

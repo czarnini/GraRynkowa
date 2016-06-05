@@ -41,7 +41,7 @@ public class ResultMatrix {
 			/**
 			 * Po jakosci
 			 */
-			for (int i = 0; i < 10; i++) 
+			for (int i = 1; i < 9; i++) 
 			{
 				/**
 				 * Po wolumenie
@@ -50,14 +50,14 @@ public class ResultMatrix {
 				{
 					
 						int		tmpJakosc = generator.nextInt(9)+(10*i)+1,
-								tmpWolumen = generator.nextInt(125000)+(125000*j);
+								tmpWolumen = generator.nextInt(50000)+(50000*j);
 						
-						double	tmpKJZ = estimator.value(tmpWolumen, tmpJakosc);
+						double	tmpKJZ = Math.floor((estimator.value(tmpWolumen/1000, tmpJakosc))*100)/100;
 						for(int l=0; l<10; l++)
 						{
 							
-								double	tmpCena = (generator.nextDouble()*10.0)+tmpKJZ,
-										tmpReklama = 5000*(tmpWolumen/10000);  //Na Kazde 10 000 wolumenu 5 000 na reklame?
+								double	tmpCena = Math.floor(((generator.nextDouble()*10.0)+tmpKJZ)*100)/100,
+										tmpReklama = 5000*(tmpWolumen/100000);  //Na Kazde 100 000 wolumenu 5 000 na reklame?
 								Round tmp = new Round(tmpWolumen, tmpJakosc, tmpKJZ, tmpCena, tmpReklama);
 								rounds.add(tmp);
 							
@@ -86,7 +86,7 @@ public class ResultMatrix {
 			
 				for (Iterator<Round> iterator = rounds.iterator(); iterator.hasNext();)
 				{
-					Round round = (Round) iterator.next();
+					Round round = iterator.next();
 					round.countWynik(Model.GOTOWKA_NA_ETAP);
 					
 				}
@@ -105,19 +105,21 @@ public class ResultMatrix {
 
 	
 	
-	public double findClosestResult(double result) {
+	public Round findBestResult() {
 		
-		double closest=99999999;
+		Round bigest=new Round(0, 0, 0, 0, 0);
 		
 		for (Iterator <Round> iterator = rounds.iterator(); iterator.hasNext();)
 		{
 			Round round =  iterator.next();
 			
-			 if( Math.abs(result-closest) > Math.abs(result-round.getWynik()));
-			 	closest = round.getWynik();
+			 if(round.getWynik()>bigest.getWynik())
+			 {
+				 bigest = round;
+			 }
 			
 		}
-		return closest;
+		return bigest;
 	}
 	
 	

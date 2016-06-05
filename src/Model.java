@@ -37,9 +37,9 @@ public class Model {
 		
 	}
 
-	public double findClosestResult(double result) {
-		double estRes= resultMatrix.findClosestResult(result);
-		return estRes;
+	public Round findBestResult() 
+	{
+		return resultMatrix.findBestResult();
 	}
 	
 

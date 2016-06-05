@@ -7,18 +7,20 @@ import java.util.Comparator;
  */
 public class Round {
 	private int wolumen;
+	private int wolumenNiesprzedany;
 	private int jakosc;
 	private double cena;
 	private double reklama;
 	private double kjz;
 	private double wynik;
+	private double przychodyZodsprzedazy =0;
 	
-	public Round(int i, int j, double d, double e, double f) {
-		wolumen=i;
-		jakosc=j;
-		kjz=d;
-		cena=e;
-		reklama=f;
+	public Round(int wolumen, int jakosc, double kjz, double cena, double reklama) {
+		this.wolumen=wolumen;
+		this.jakosc=jakosc;
+		this.kjz=kjz;
+		this.cena=cena;
+		this.reklama=reklama;
 		wynik=-1;
 	}
 	
@@ -66,9 +68,16 @@ public class Round {
 	{ 
 		double zyskNaDzGosp, zyskNaDzOp, podatek=0, odsetki, zyskNaSprzedazy, kosztyProdukcji,
 		przychodyZeSprzedazy;
+		if(cena > 2*kjz)
+		{
+			wolumenNiesprzedany = (int) ( (kjz/cena) * wolumen );
+			wolumen = wolumen - wolumenNiesprzedany;
+			przychodyZodsprzedazy =Math.floor(( 0.5 * wolumenNiesprzedany * kjz)*100)/100;
+		}
+		
 		przychodyZeSprzedazy = wolumen*cena;
-		kosztyProdukcji = Model.KOSZTY_STALE+(wolumen*kjz);
-		zyskNaSprzedazy = przychodyZeSprzedazy - kosztyProdukcji - reklama;
+		kosztyProdukcji = Model.KOSZTY_STALE+((wolumen+wolumenNiesprzedany)*kjz);
+		zyskNaSprzedazy = przychodyZeSprzedazy + przychodyZodsprzedazy - kosztyProdukcji - reklama;
 		zyskNaDzOp = zyskNaSprzedazy - Model.AMORTYZACJA;
 		odsetki = (gotowkaNaEtap - kosztyProdukcji-reklama - Model.AMORTYZACJA )*Model.OPROCENTOWANIE;
 		zyskNaDzGosp = zyskNaDzOp + odsetki;
@@ -76,8 +85,35 @@ public class Round {
 		if(zyskNaDzGosp>=0) podatek = zyskNaDzGosp*Model.STOPA_PODATKU; 
 		else		  		podatek=odsetki*Model.STOPA_PODATKU;
 		
-		
-		wynik = zyskNaDzGosp - podatek;
+		if(kosztyProdukcji+reklama > Model.GOTOWKA_NA_ETAP){
+			wynik = -100;
+		}
+		else
+			wynik = Math.floor((zyskNaDzGosp - podatek)*100)/100;
+	}
+
+
+
+	public int getWolumenNiesprzedany() {
+		return wolumenNiesprzedany;
+	}
+
+
+
+	public void setWolumenNiesprzedany(int wolumenNiesprzedany) {
+		this.wolumenNiesprzedany = wolumenNiesprzedany;
+	}
+
+
+
+	public double getPrzychodyZodsprzedazy() {
+		return przychodyZodsprzedazy;
+	}
+
+
+
+	public void setPrzychodyZodsprzedazy(double przychodyZodsprzedazy) {
+		this.przychodyZodsprzedazy = przychodyZodsprzedazy;
 	}
 
 

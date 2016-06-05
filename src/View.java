@@ -47,8 +47,7 @@ public class View {
 		btnOblicz.setEnabled(false);
 		btnOblicz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controler.solve(gotowkaField.getText());
-				runda = controler.getResult();
+				runda = controler.solve(gotowkaField.getText());
 				wolWyn.setText(""+runda.getWolumen());
 				jakWyn.setText(""+runda.getJakosc());
 				kjzWyn.setText(""+runda.getKjz());
@@ -184,5 +183,7 @@ public class View {
 		});
 		btnDef.setBounds(52, 167, 223, 25);
 		mainFrame.getContentPane().add(btnDef);
+		
+		mainFrame.setVisible(true);
 	}
 }
